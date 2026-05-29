@@ -1,0 +1,50 @@
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: mluser
+      POSTGRES_PASSWORD: mlpass
+      POSTGRES_DB: mldb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  init-db:
+    build: ./init-db
+    container_name: init-db
+    depends_on:
+      - postgres
+    volumes:
+      - ./datasets:/datasets
+
+  training:
+    build: ./training
+    container_name: training
+    depends_on:
+      - postgres
+    volumes:
+      - ./models:/models
+
+  api:
+    build: ./api
+    container_name: api
+    depends_on:
+      - postgres
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/models
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    depends_on:
+      - api
+    ports:
+      - "8501:8501"
+
+volumes:
+  postgres_data:
