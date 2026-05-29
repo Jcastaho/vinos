@@ -104,58 +104,6 @@ docker compose up api frontend
 
 ---
 
-## Probar la API con curl
-
-```bash
-curl -X POST http://localhost:8000/predict \
-  -H "Content-Type: application/json" \
-  -d '{
-    "fixed_acidity": 7.4,
-    "volatile_acidity": 0.52,
-    "citric_acid": 0.27,
-    "residual_sugar": 2.2,
-    "chlorides": 0.076,
-    "free_sulfur_dioxide": 11.0,
-    "total_sulfur_dioxide": 34.0,
-    "density": 0.9968,
-    "pH": 3.20,
-    "sulphates": 0.56,
-    "alcohol": 10.5,
-    "wine_type": "red"
-  }'
-```
-
-Respuesta esperada:
-
-```json
-{
-  "prediccion_binaria": 0,
-  "categoria_binaria": "Regular / Malo (3-6)",
-  "prob_bueno": 0.12,
-  "prob_malo": 0.88,
-  "calidad_ordinal": 5,
-  "descripcion_ordinal": "regular"
-}
-```
-
----
-
-## Verificar PostgreSQL
-
-```bash
-docker exec -it postgres psql -U mluser -d mldb
-```
-
-Consultas útiles:
-
-```sql
-\dt
-SELECT * FROM wine_dataset LIMIT 5;
-SELECT * FROM models_metadata;
-SELECT * FROM wine_predictions ORDER BY ctid DESC LIMIT 10;
-```
-
----
 
 ## Preprocesamiento aplicado en train.py
 
