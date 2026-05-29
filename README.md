@@ -44,7 +44,28 @@ wine-ml-pipeline/
 ```
 
 ---
+## Flujo del sistema
 
+```
+CSV Dataset
+    ↓
+Init-DB (carga el CSV en PostgreSQL)
+    ↓
+PostgreSQL (almacena dataset, metadata y predicciones)
+    ↓
+Training Service (entrena los dos modelos)
+    ↓
+modelo_clasificacion.pkl + modelo_ordinal.pkl
+    ↓
+FastAPI (sirve predicciones via REST)
+    ↓
+Streamlit (interfaz de usuario)
+    ↓
+Usuario
+```
+
+
+---
 ## Ejecución paso a paso
 
 ### Paso 1 — Construir los contenedores
