@@ -25,7 +25,6 @@ wine-ml-pipeline/
 ├── datasets/
 │   └── wine_dataset.csv
 ├── models/
-├── db/
 ├── init-db/
 │   ├── Dockerfile
 │   ├── load_data.py
@@ -69,8 +68,6 @@ docker compose up -d postgres
 ```bash
 docker compose run init-db
 ```
-
-Carga `wine_dataset.csv` y crea la tabla `wine_dataset`.
 
 ---
 
